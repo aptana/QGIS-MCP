@@ -1,85 +1,30 @@
-
-
 # Contributing to QGIS MCP
 
-Thank you for your interest in contributing! 🎉  
-This project connects [QGIS](https://qgis.org/) to [Claude AI](https://claude.ai/chat) through the [Model Context Protocol (MCP)](https://modelcontextprotocol.io/docs/getting-started/intro)). Your help in improving this integration is very welcome.
+Thanks for helping improve QGIS MCP. Changes to the QGIS plugin or MCP server should be tested with QGIS running locally.
 
-## Getting Started
+## Development Setup
 
-1. **Fork the Repository**  
-  Clone the repository locally:
-   ```bash
-  git clone https://github.com/aptana/QGIS-MCP.git
-  cd QGIS-MCP
-  uv sync
-   ```
+1. Clone the repository and install the server dependencies:
 
-2. **Install Prerequisites**  
-   - QGIS 3.X (tested on 3.22)  
-  - Python 3.12 or newer  
-   - [uv](https://docs.astral.sh/uv/getting-started/installation/) package manager  
-   - Claude desktop  
-
-   On Mac:
-   ```bash
-   brew install uv
-   ```
-
-   On Windows Powershell:
-   ```bash
-   powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
-   ```
-
-3. **Set Up the QGIS Plugin**  
-   Create a symlink from this repo’s `qgis_mcp_plugin` folder to your QGIS profile plugin directory.
-
-   On Mac:
-   ```bash
-   ln -s $(pwd)/qgis_mcp_plugin ~/Library/Application\ Support/QGIS/QGIS3/profiles/default/python/plugins/qgis_mcp
-   ```
-
-   On Windows Powershell:
    ```powershell
-   $src = "$(pwd)\qgis_mcp_plugin"
-  $dst = "$env:APPDATA\QGIS\QGIS3\profiles\default\python\plugins\qgis_mcp_plugin"
-   New-Item -ItemType SymbolicLink -Path $dst -Target $src
+   git clone https://github.com/aptana/QGIS-MCP.git
+   cd QGIS-MCP
+   uv sync
    ```
 
-   Restart QGIS, go to `Plugins` > `Manage and Install Plugins`, search for **QGIS MCP**, and enable it.
+2. Install the `qgis_mcp_plugin` folder into the active QGIS profile's `python/plugins` directory. In QGIS, find it under **Settings > User Profiles > Open Active Profile Folder**. Restart QGIS and enable **Q-MCP** from **Plugins > Manage and Install Plugins**.
 
-4. **Configure Claude Desktop**  
-   Add the server configuration to `claude_desktop_config.json`:
-   ```json
-   {
-     "mcpServers": {
-       "qgis": {
-         "command": "uv",
-         "args": [
-           "--directory",
-           "/ABSOLUTE/PATH/TO/QGIS-MCP",
-           "run",
-           "src/qgis_mcp/qgis_mcp_server.py"
-         ]
-       }
-     }
-   }
-   ```
+   Windows profile plugins path: `%APPDATA%/QGIS/QGIS3/profiles/default/python/plugins`
 
-## Development Workflow
+3. Start the plugin server from **Plugins > QGIS MCP > QGIS MCP > Start Server**. Configure your MCP client to run `uv --directory /absolute/path/to/QGIS-MCP run src/qgis_mcp/qgis_mcp_server.py` using stdio.
 
-- Start the QGIS plugin (`Plugins` > `QGIS MCP` > `Start Server`).
-- Run the MCP server via Claude Desktop integration.
-- Make your changes and test locally.
+## Contribution Guidelines
 
-## Contributing Guidelines
+- Keep pull requests focused and describe the behavior being changed.
+- Update documentation when setup or tool behavior changes.
+- Test plugin and server changes with QGIS 3.x; the project was tested with QGIS 3.22.
+- Be careful with `execute_code`: it runs arbitrary Python inside QGIS.
 
-- Keep PRs focused on a single change.
-- Write clear commit messages.
-- Update docs if behavior changes.
-- Be cautious when using `execute_code` (it runs arbitrary PyQGIS).
+## Report Issues
 
-## Reporting Issues
-
-- Use [GitHub Issues](https://github.com/aptana/QGIS-MCP/issues).
-- Include OS, QGIS version, and error logs where relevant.
+Open an issue at https://github.com/aptana/QGIS-MCP/issues and include your operating system, QGIS version, and relevant error details.
