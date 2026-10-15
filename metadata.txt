@@ -1,0 +1,11 @@
+[general]
+name=Q-MCP
+description=Bridges MCP commands to QGIS
+version=1.0
+qgisMinimumVersion=3.0
+author=Aptana Azmi
+email=
+category=AI Plugins
+
+[about]
+about=AltairMCP is an open-source QGIS plugin that bridges your spatial workspace directly with AI models using the Model Context Protocol (MCP). Inspired by the navigation star Altair, it acts as an intelligent compass, allowing you to interact with layers, attribute data, and geospatial workflows through natural language prompts.
